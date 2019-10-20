@@ -1,5 +1,5 @@
 
-import java.io.*;
+import java.io.File;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -66,29 +66,30 @@ public class adivina_numeros {
 		case 3:
 			Scanner entrada2=new Scanner(System.in);
 			String nombre = null;
-			int edad = 0;
+			int anioNacimiento = 0;
 			int anio = 0;
 			int edadTotal;
 			System.out.println("Introduzca su nombre, por favor");
-			
 			nombre=entrada2.nextLine();
 			try {
 			System.out.println("Introduzca su año de nacimiento");
-			edad=entrada2.nextInt();
-			
+			anioNacimiento=entrada2.nextInt();
 			System.out.println("Introduce año");
 			anio=entrada2.nextInt();
+			
 			}catch(InputMismatchException e) {
 				System.out.println("no introduciste un número positivo\n");
 			}
-			edadTotal=anio-edad;
-			if(edad!=0 && anio!=0) {
-			System.out.println("Tu nombre es "+nombre+" en el año "+anio+" tendrás "+edadTotal+ " años\n");
-			String edadT="Tu nombre es "+nombre+" en el año "+anio+" tendrás "+edadTotal+ " años\n";
-			File resumenEdad = new File("src/ficheros_directorios/edad.txt");
+			ClaseAnios ca = new ClaseAnios(nombre, anioNacimiento, anio);
+			ca.CalculaEdad(anio, anioNacimiento);
+			
+			File file = new File("src/ficheros_directorios/edad.txt");	
+			int edadT=ca.getEdadTotal();
+			System.out.println("Tu nombre es "+nombre+" en el año "+anio+" tendrás "+edadT+ " años,"
+					+ " tus datos se guardaran en "+file.getName());
+			String string =ca.toString();
 			Escribiendo accede = new Escribiendo();
-			accede.escribir(resumenEdad, edadT);
-			}
+			accede.escribir(file, string);
 			break;
 		case 4:
 			int primerEntero = (int)(Math.random()*10+1);
