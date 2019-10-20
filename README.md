@@ -1,1 +1,1 @@
-# ProyectoJava
+#proyecto desarrollado por cuenta propia
